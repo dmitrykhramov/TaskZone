@@ -5,6 +5,7 @@ import javax.persistence.*;
 /**
  * Created by Dmitry on 13.02.2017.
  */
+
 @Entity
 public class Role {
 

@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * Created by Dmitry on 12.02.2017.
  */
+
 public interface UserRepository extends CrudRepository<User, Integer> {
 
     List<User> findAll();
