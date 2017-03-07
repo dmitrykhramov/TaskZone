@@ -1,7 +1,6 @@
 package com.khramovdmitry.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,15 +13,14 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private int userId;
 
     private String firstName;
     private String lastName;
     private String email;
+    private String username;
     private String password;
-
-    @OneToOne
-    private Role role;
+    private boolean isManager;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -31,12 +29,12 @@ public class User {
     public User() {
     }
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
@@ -63,6 +61,14 @@ public class User {
         this.email = email;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -71,19 +77,19 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public List<PrivateTask> getPrivateTasks() {
         return privateTasks;
     }
 
     public void setPrivateTasks(List<PrivateTask> privateTasks) {
         this.privateTasks = privateTasks;
+    }
+
+    public boolean isManager() {
+        return isManager;
+    }
+
+    public void setManager(boolean manager) {
+        isManager = manager;
     }
 }

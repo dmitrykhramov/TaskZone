@@ -2,6 +2,7 @@ package com.khramovdmitry.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * Created by Dmitry on 13.02.2017.
@@ -16,8 +17,8 @@ public abstract class Task {
 
     private String title;
     private String description;
-    private LocalDate created;
-    private LocalDate deadline;
+    private Date created;
+    private Date deadline;
     private boolean isDone;
 
     public int getId() {
@@ -44,19 +45,19 @@ public abstract class Task {
         this.description = description;
     }
 
-    public LocalDate getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDate created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public LocalDate getDeadline() {
+    public Date getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(LocalDate deadline) {
+    public void setDeadline(Date deadline) {
         this.deadline = deadline;
     }
 
