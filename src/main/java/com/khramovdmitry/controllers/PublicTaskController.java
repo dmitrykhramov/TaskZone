@@ -44,7 +44,7 @@ public class PublicTaskController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<?> addTask(@RequestBody PublicTask task) {
         task.setDone(false);
-        System.out.println(task.getDeadline());
+        System.out.println(task.getAssignee());
         return new ResponseEntity<>(publicTaskService.saveOrUpdate(task), HttpStatus.CREATED);
     }
 

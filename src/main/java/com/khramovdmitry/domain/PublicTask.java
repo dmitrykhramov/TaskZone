@@ -26,4 +26,11 @@ public class PublicTask extends Task {
         this.response = response;
     }
 
+    public User getAssignee() {
+        return assignee;
+    }
+
+    public void setAssignee(User assignee) {
+        this.assignee = assignee;
+    }
 }

@@ -1,0 +1,254 @@
+/*!
+ * Start Bootstrap - Simple Sidebar (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+body {
+  overflow-x: hidden;
+  background: url('../img/bg-pink.jpg') no-repeat;
+  background-size: cover;
+  color: white;
+}
+
+
+/* Toggle Styles */
+
+a {
+  color: white;
+}
+
+.v-center {
+  position: relative;
+  transform: translateY(50%);
+}
+
+.nav {
+  background-color: transparent !important;
+}
+
+.nav>li>a {
+  background-color: transparent !important;
+}
+
+.navbar-nav > li > a:hover {
+  color: color: #5cb85c;
+}
+
+.navbar-nav>.active> a {
+  background-color: transparent !important;
+}
+
+ul.nav-tabs {
+  text-align: center;
+}
+
+ul.nav-tabs li {
+  float: none;
+  display: inline-block;
+}
+
+.modal {
+  color: black;
+}
+
+
+/* Same height cards */
+
+.card {
+  margin-top: 30px;
+  padding-left: 2em;
+  padding-bottom: 1.5em;
+  padding-right: 2em;
+  background: rgb(204, 204, 204);
+  /* Fallback for older browsers without RGBA-support */
+  background: rgba(204, 204, 204, 0.25);
+  overflow: hidden;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  -webkit-transition: .25s box-shadow;
+  transition: .25s box-shadow;
+}
+
+.card:focus,
+.card:hover {
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+#wrapper {
+  padding-left: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+  padding-left: 250px;
+}
+
+
+/* Transparent rectangular buttons */
+
+.btn-transparent {
+  width: 150px;
+  height: auto;
+  font-size: 12px;
+  line-height: 1.428571429;
+  background-image: none;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+
+/* rectangular button */
+
+.sharp {
+  border-radius: 0;
+}
+
+
+/* Round buttons */
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  float: right;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+  background-image: none;
+  background-color: transparent;
+  border: 2px solid white;
+}
+
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
+#sidebar-wrapper {
+  z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 0;
+  height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
+  background: #000;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav li {
+  text-indent: 20px;
+  line-height: 40px;
+}
+
+.sidebar-nav li a {
+  display: block;
+  text-decoration: none;
+  color: #999999;
+}
+
+.sidebar-nav li a:hover {
+  text-decoration: none;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+  height: 65px;
+  font-size: 18px;
+  line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+  color: #fff;
+  background: none;
+}
+
+.sidebar-brand>img {
+  /*height: 100%;*/
+  padding: 15px;
+  /*width: auto;*/
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+@media(min-width:768px) {
+  #wrapper {
+    padding-left: 0;
+  }
+  #wrapper.toggled {
+    padding-left: 250px;
+  }
+  #sidebar-wrapper {
+    width: 0;
+  }
+  #wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+  }
+  #page-content-wrapper {
+    padding: 20px;
+    position: relative;
+  }
+  #wrapper.toggled #page-content-wrapper {
+    position: relative;
+    margin-right: 0;
+  }
+}
