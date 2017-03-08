@@ -44,8 +44,18 @@ public class PublicTaskController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<?> addTask(@RequestBody PublicTask task) {
         task.setDone(false);
-        task.setCreated(new Date());
+        System.out.println(task.getDeadline());
         return new ResponseEntity<>(publicTaskService.saveOrUpdate(task), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateTask(@RequestBody PublicTask task) {
+        PublicTask oldTask = publicTaskService.getById(task.getId());
+//        oldTask.setResponse(task.getResponse());
+        oldTask.setDescription(task.getDescription());
+        oldTask.setTitle(task.getTitle());
+        oldTask.setDeadline(task.getDeadline());
+        return new ResponseEntity<>(publicTaskService.saveOrUpdate(oldTask), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)

@@ -74,5 +74,6 @@ public class PrivateTaskServiceImpl implements PrivateTaskService {
         } else {
             task.setDone(true);
         }
+        saveOrUpdate(task);
     }
 }

@@ -74,5 +74,6 @@ public class PublicTaskServiceImpl implements PublicTaskService {
         } else {
             task.setDone(true);
         }
+        saveOrUpdate(task);
     }
 }
