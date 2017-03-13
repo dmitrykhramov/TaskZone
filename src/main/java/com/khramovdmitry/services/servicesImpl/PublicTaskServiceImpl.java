@@ -1,12 +1,17 @@
 package com.khramovdmitry.services.servicesImpl;
 
 import com.khramovdmitry.domain.PublicTask;
+import com.khramovdmitry.domain.Task;
 import com.khramovdmitry.repositories.PublicTaskRepository;
 import com.khramovdmitry.services.PublicTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,9 +28,17 @@ public class PublicTaskServiceImpl implements PublicTaskService {
         this.taskRepository = taskRepository;
     }
 
+    private Sort sortByDeadlineAsc() {
+        return new Sort(Sort.Direction.ASC, "deadline");
+    }
+
+    private Sort sortByFinishedAsc() {
+        return new Sort(Sort.Direction.DESC, "finished");
+    }
+
     @Override
     public List<PublicTask> listAll() {
-        return taskRepository.findAll();
+        return taskRepository.findAll(sortByDeadlineAsc());
     }
 
     @Override
@@ -47,7 +60,7 @@ public class PublicTaskServiceImpl implements PublicTaskService {
     @Override
     public List<PublicTask> listAllFinished() {
         List<PublicTask> finishedTasks = new ArrayList<>();
-        listAll().forEach(task -> {
+        taskRepository.findAll(sortByFinishedAsc()).forEach(task -> {
             if (task.isDone()) {
                 finishedTasks.add(task);
             }
@@ -67,13 +80,28 @@ public class PublicTaskServiceImpl implements PublicTaskService {
     }
 
     @Override
+    public List<PublicTask> listLastFinished() {
+        List<PublicTask> finishedTasks = listAllFinished();
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, -3);
+        date = cal.getTime();
+
+        List<PublicTask> lastTasks = new ArrayList<>();
+        for (PublicTask task : finishedTasks) {
+            if(task.getFinished() != null && task.getFinished().after(date)) {
+                lastTasks.add(task);
+            }
+        }
+        return lastTasks;
+    }
+
+    @Override
     public void toogleTask(int id) {
         PublicTask task = getById(id);
-        if (task.isDone()) {
-            task.setDone(false);
-        } else {
-            task.setDone(true);
-        }
+        task.setDone(true);
+        task.setFinished(new Date());
         saveOrUpdate(task);
     }
 }

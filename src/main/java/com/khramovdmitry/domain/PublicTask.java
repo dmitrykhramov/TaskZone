@@ -1,9 +1,7 @@
 package com.khramovdmitry.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Created by Dmitry on 12.02.2017.
@@ -12,10 +10,10 @@ import java.util.List;
 @Entity
 public class PublicTask extends Task {
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Response response;
 
-    @OneToOne
+    @ManyToOne
     private User assignee;
 
     public Response getResponse() {

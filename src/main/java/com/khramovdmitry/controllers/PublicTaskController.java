@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
@@ -28,8 +29,18 @@ import java.util.List;
 @RequestMapping("/rest/tasks")
 public class PublicTaskController {
 
-    @Autowired
     private PublicTaskService publicTaskService;
+    private UserService userService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Autowired
+    public void setPublicTaskService(PublicTaskService publicTaskService) {
+        this.publicTaskService = publicTaskService;
+    }
 
     @RequestMapping("/all")
     public List<PublicTask> listAllTasks() {
@@ -41,21 +52,40 @@ public class PublicTaskController {
         return publicTaskService.listAllFinished();
     }
 
+    @RequestMapping("/last")
+    public List<PublicTask> listLastFinishedTasks() {
+        return publicTaskService.listLastFinished();
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity<?> addTask(@RequestBody PublicTask task) {
-        task.setDone(false);
-        System.out.println(task.getAssignee());
-        return new ResponseEntity<>(publicTaskService.saveOrUpdate(task), HttpStatus.CREATED);
+    public ResponseEntity<?> addTask(@RequestBody PublicTask task, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        if (user.isManager()) {
+            task.setDone(false);
+            return new ResponseEntity<>(publicTaskService.saveOrUpdate(task), HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateTask(@RequestBody PublicTask task) {
+    public ResponseEntity<?> updateTask(@RequestBody PublicTask task, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
         PublicTask oldTask = publicTaskService.getById(task.getId());
-//        oldTask.setResponse(task.getResponse());
-        oldTask.setDescription(task.getDescription());
-        oldTask.setTitle(task.getTitle());
-        oldTask.setDeadline(task.getDeadline());
-        return new ResponseEntity<>(publicTaskService.saveOrUpdate(oldTask), HttpStatus.OK);
+        if (user.isManager()) {
+            oldTask.setDescription(task.getDescription());
+            oldTask.setTitle(task.getTitle());
+            oldTask.setAssignee(task.getAssignee());
+            if (task.getDeadline() != null) {
+                oldTask.setDeadline(task.getDeadline());
+            }
+            return new ResponseEntity<>(publicTaskService.saveOrUpdate(oldTask), HttpStatus.OK);
+        } else {
+            if (task.getAssignee().getFirstName().equals(user.getFirstName()) && task.getAssignee().getLastName().equals(user.getLastName())) {
+                oldTask.setResponse(task.getResponse());
+                return new ResponseEntity<>(publicTaskService.saveOrUpdate(oldTask), HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -64,25 +94,25 @@ public class PublicTaskController {
     }
 
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteTask(@PathVariable("id") int id) {
-        Task taskToDelete = publicTaskService.getById(id);
-        publicTaskService.delete(id);
-        return new ResponseEntity<>(taskToDelete, HttpStatus.OK);
+    public ResponseEntity<?> deleteTask(@PathVariable("id") int id, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        if (user.isManager()) {
+            publicTaskService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping("/toogle/{id}")
-    public ResponseEntity<?> toogleTask(@PathVariable("id") int id) {
-        publicTaskService.toogleTask(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+    public ResponseEntity<?> toogleTask(@PathVariable("id") int id, Principal principal) {
+        PublicTask task = publicTaskService.getById(id);
+        User user = userService.findByUsername(principal.getName());
+        if (task.getAssignee().getFirstName().equals(user.getFirstName()) && task.getAssignee().getLastName().equals(user.getLastName())) {
+            publicTaskService.toogleTask(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 
-    @RequestMapping("/populate")
-    public String populateTasks() {
-        PublicTask task = new PublicTask();
-        task.setTitle("Title2");
-        task.setDescription("Testing task2");
-        publicTaskService.saveOrUpdate(task);
-        return "populated";
     }
 
 }

@@ -1,6 +1,7 @@
 package com.khramovdmitry.repositories;
 
 import com.khramovdmitry.domain.PrivateTask;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -11,5 +12,5 @@ import java.util.List;
 
 public interface PrivateTaskRepository extends CrudRepository<PrivateTask, Integer> {
 
-    List<PrivateTask> findAll();
+    List<PrivateTask> findAll(Sort sort);
 }

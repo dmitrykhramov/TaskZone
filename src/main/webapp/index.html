@@ -9,20 +9,23 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>TaskZone application</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="css/taskzone.css" rel="stylesheet">
+    <!-- online-fonts -->
+    <link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i&amp;subset=latin-ext" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!--&lt;!&ndash; HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries &ndash;&gt;-->
+    <!--&lt;!&ndash; WARNING: Respond.js doesn't work if you view the page via file:// &ndash;&gt;-->
+    <!--&lt;!&ndash;[if lt IE 9]>-->
+    <!--<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
+    <!--<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>-->
+    <!--<![endif]&ndash;&gt;-->
 
 </head>
 
@@ -37,40 +40,37 @@
           <img src="img/lush-logo.png">
         </li>
         <li>
-          <a href="#">Home</a>
+          <a href="#" id="homeLink">Home</a>
         </li>
         <li>
-          <a href="#">Profile</a>
+          <a href="#" id="profileLink">Profile</a>
         </li>
         <li>
-          <a href="manage_users.html">Manage users</a>
-        </li>
-        <li>
-          <a href="#">Schedule</a>
-        </li>
-        <li>
-          <a href="#">Help</a>
+          <a id="manageUsersLink" href="#">Manage users</a>
         </li>
         <li>
           <a id="logoutButton" href="#">Logout</a>
         </li>
       </ul>
     </div>
-    <!-- /#sidebar-wrapper -->
+    <!--sidebar-->
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
-        <nav class="navbar navbar-brand navbar-right">
+        <nav class="navbar navbar-brand navbar-left">
             <div class="container-fluid">
-                <ul class="nav navbar-nav">
-                    <li id="navBtnAddTask" class="active"><a href="#" data-toggle="modal" data-target="#taskAdd">Add Task</a></li>
-                    <li class="active"><a href="#" data-toggle="modal" data-target="#taskAddPrivate">Add Private</a></li>
-                    <li><a href="#menu-toggle" id="menu-toggle">Menu</a></li>
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="#menu-toggle" id="menu-toggle"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                    <li id="navBtnAddTask" class="active"><a href="#" data-toggle="modal" data-target="#taskAdd"><i class="fa fa-fw fa-plus-circle"></i>&nbsp;Task</a></li>
+                    <li class="active"><a href="#" data-toggle="modal" data-target="#taskAddPrivate"><i class="fa fa-fw fa-plus-circle"></i>&nbsp;Private</a></li>
                 </ul>
             </div>
         </nav>
-        <!--To hide-->
+
+        <!--Div - tasks screen-->
         <div class="container-fluid" id="tasksContainer">
+
+            <!--Tabs-->
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="nav nav-tabs">
@@ -80,9 +80,22 @@
                     </ul>
                 </div>
             </div>
+            <!--Tabs-->
 
+            <!--Public tasks-->
             <div id="publictasks" class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6" id="dueTasks">
+                        <br>
+                        <h3>DUE TASKS</h3>
+                    </div>
+                    <div class="col-lg-6" id="recentlyFinished">
+                        <br>
+                        <h3>RECENTLY FINISHED TASKS</h3>
+                    </div>
+                </div>
             </div>
+            <!--Public tasks-->
 
             <div id="privatetasks" class="container-fluid" style="display: none">
             </div>
@@ -96,21 +109,21 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Task Title</h4>
+                            <h4 class="modal-title">Add task</h4>
                         </div>
                         <div class="modal-body">
                             <form method="post">
-                                <label for="title">Title</label>
+                                <label for="titleAdd">Title</label>
                                 <input type="text" class="form-control" id="titleAdd">
                                 <br>
-                                <label for="deadline">Due date</label>
+                                <label for="deadlineAdd">Due date</label>
                                 <input type="date" class="form-control" id="deadlineAdd">
                                 <br>
-                                <label for="assignee">Responsible person</label>
+                                <label for="assigneeAdd">Responsible person</label>
                                 <select class="form-control" id="assigneeAdd">
                                 </select>
                                 <br>
-                                <label for="description">Description</label>
+                                <label for="descriptionAdd">Description</label>
                                 <textarea class="form-control" rows="5" id="descriptionAdd"></textarea>
                             </form>
                         </div>
@@ -128,7 +141,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Task Title</h4>
+                            <h4 class="modal-title">Public task</h4>
                         </div>
                         <div class="modal-body">
                             <form>
@@ -151,7 +164,7 @@
                                 <textarea class="form-control" rows="3" id="comments"></textarea>
                                 <br>
                                 <label class="custom-file">
-                                    <input type="file" id="file" class="custom-file-input">
+                                    <input type="file" id="file" class="custom-file-input" style="display: none">
                                     <span class="custom-file-control"></span>
                                 </label>
                             </form>
@@ -171,7 +184,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Task Title</h4>
+                            <h4 class="modal-title">Private task</h4>
                         </div>
                         <div class="modal-body">
                             <form>
@@ -223,20 +236,203 @@
             </div>
             <!--Form for updating private task-->
 
-
-
         </div>
-        <!-- /#page-content-wrapper -->
+        <!-- Div - tasks screen -->
+
+        <!--Form for adding user-->
+        <div class="modal fade" id="userAddForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            Add new user
+                        </h4>
+                    </div>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" placeholder="Username" />
+                            </div>
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="First Name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Last Name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" />
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="Password" />
+                            </div>
+                            <button type="submit" class="btn btn-primary" data-dismiss="modal" id="addUserSubmit">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Form for adding user -->
+
+        <!-- List of users -->
+        <div class="container-fluid" id="usersContainer" style="display: none">
+            <div class="row"></div>
+            <div class="container" id="usersCards">
+                <!-- Card add user-->
+                <div class="col-sm-12 col-md-4">
+                    <div class="card col-md-12">
+                        <div class="card-block">
+                            <br>
+                            <img class="card-img-top center-block" src="img/plus.png" alt="User avatar">
+                            <h4 class="card-title text-center">New user</h4>
+                            <dl class="dl-horizontal">
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <div class="text-center">
+                                    <label class="btn btn-info btn-transparent sharp" data-toggle="modal" data-target="#userAddForm">Add User</label>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card add user -->
+
+            </div>
+        </div>
+        <!--List of users-->
+
+        <!-- Profile page -->
+        <div class="container-fluid" id="profileContainer" style="display: none">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="row">
+                <div class="card card-profile no-padding">
+                    <div class="card-header info-header text-center">
+                        <p class='no-marging'>YOUR PROFILE</p>
+                    </div>
+                    <div class="card-block">
+                        <br>
+                        <br>
+                        <div class="col-md-4">
+                            <figure> <img class="center-block" src="img/user.png">
+                            </figure>
+                        </div>
+                        <div class="col-md-7">
+                            <h4 class="card-title">Contact Info</h4>
+                            <hr>
+                            <dl class="row info" id="profileInfo">
+                            </dl>
+                            <br><a href="#" class="btn btn-info btn-transparent sharp" data-toggle="modal" data-target="#profileForm">Edit profile</a>
+                            <a href="#" class="btn btn-info btn-transparent sharp" data-toggle="modal" data-target="#passwordForm">Change password</a>
+                            <div class="row">
+                                <br>
+                                <br> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Profile page-->
+
+        <!-- Form for changing profile -->
+        <div class="modal fade" id="profileForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span> </button>
+                        <h4 class="modal-title">
+                            Edit profile
+                        </h4> </div>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <br>
+                                <label for="usernameEdit">Username</label>
+                                <input type="text" class="form-control" id="usernameEdit" placeholder="Username" /> </div>
+                            <div class="form-group">
+                                <label for="firstNameEdit">First Name</label>
+                                <input type="text" class="form-control" id="firstNameEdit" placeholder="First Name" /> </div>
+                            <div class="form-group">
+                                <label for="lastNameEdit">Last Name</label>
+                                <input type="text" class="form-control" id="lastNameEdit" placeholder="Last Name" /> </div>
+                            <div class="form-group">
+                                <label for="emailEdit">Email address</label>
+                                <input type="email" class="form-control" id="emailEdit" placeholder="Enter email" /> </div>
+                            <br>
+                            <br>
+                            <div class="sub-button">
+                                <button type="submit" class="btn btn-info sharp btn-form" data-dismiss="modal" id="editProfileSubmit">Save changes</button>
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Form for changing profile -->
+
+        <!-- Change password form -->
+        <div class="modal fade" id="passwordForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span> </button>
+                        <h4 class="modal-title">
+                            Change password
+                        </h4> </div>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <br>
+                                <label for="oldPass">Old password</label>
+                                <input type="password" class="form-control" id="oldPass" /> </div>
+                            <div class="form-group">
+                                <label for="newPass">New password</label>
+                                <input type="password" class="form-control" id="newPass" /> </div>
+                            <br>
+                            <br>
+                            <div class="sub-button">
+                                <button type="submit" class="btn btn-info sharp btn-form" data-dismiss="modal" id="changePassSubmit">Save changes</button>
+                            </div>
+                            <br> </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Change password form -->
 
     </div>
-    <!-- /#wrapper -->
+    <!--Page content-->
 </div>
+<!--Wrapper-->
 
 <!-- jQuery -->
-<script src="js/jquery.js"></script>
+<script src="lib/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+<script src="lib/bootstrap.min.js"></script>
 
 <script src="lib/jquery.cookie.js"></script>
 <script src="index.js"></script>

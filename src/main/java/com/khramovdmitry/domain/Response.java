@@ -15,7 +15,6 @@ public class Response {
     private int id;
     private String comment;
     private byte[] document;
-    private LocalDate date;
 
     @OneToOne
     private PublicTask task;
@@ -55,11 +54,4 @@ public class Response {
         this.task = task;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
 }

@@ -22,9 +22,13 @@ public class User {
     private String password;
     private boolean isManager;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     @JsonIgnore
     private List<PrivateTask> privateTasks;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "assignee")
+    @JsonIgnore
+    private List<PublicTask> publicTask;
 
     public User() {
     }
@@ -91,5 +95,13 @@ public class User {
 
     public void setManager(boolean manager) {
         isManager = manager;
+    }
+
+    public List<PublicTask> getPublicTask() {
+        return publicTask;
+    }
+
+    public void setPublicTask(List<PublicTask> publicTask) {
+        this.publicTask = publicTask;
     }
 }

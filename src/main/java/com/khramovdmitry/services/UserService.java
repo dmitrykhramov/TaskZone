@@ -14,6 +14,6 @@ public interface UserService extends BaseService<User> {
 
     User findByUsername(String username);
 
-    User createUser(User user);
+    boolean changePassword(User user, String oldPass, String newPass);
 
 }

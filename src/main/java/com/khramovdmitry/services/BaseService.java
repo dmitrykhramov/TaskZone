@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BaseService<T> {
 
-    List<?> listAll();
+    List<T> listAll();
 
     T getById(int id);
 

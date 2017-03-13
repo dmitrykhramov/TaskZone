@@ -2,6 +2,7 @@ package com.khramovdmitry.services;
 
 import com.khramovdmitry.domain.PublicTask;
 import com.khramovdmitry.domain.Task;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public interface PublicTaskService extends BaseService<PublicTask> {
     List<PublicTask> listAllFinished();
 
     List<PublicTask> listAllUnfinished();
+
+    List<PublicTask> listLastFinished();
 
     void toogleTask(int id);
 }

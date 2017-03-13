@@ -20,7 +20,8 @@ jQuery(document).ready(function ($) {
 
         }).fail(function(jqXHR, textStatus, errorThrown) {
 
-            console.error('Booh! Wrong credentials, try again!');
+            alert('Wrong credentials, try again!');
+
         });
     });
 });

@@ -1,6 +1,7 @@
 package com.khramovdmitry.services;
 
 import com.khramovdmitry.domain.PrivateTask;
+import com.khramovdmitry.domain.User;
 
 import java.util.List;
 
@@ -10,9 +11,9 @@ import java.util.List;
 
 public interface PrivateTaskService extends BaseService<PrivateTask> {
 
-    List<PrivateTask> listAllFinished();
+    List<PrivateTask> listAllFinished(User user);
 
-    List<PrivateTask> listAllUnfinished();
+    List<PrivateTask> listAllUnfinished(User user);
 
     void toogleTask(int id);
 }

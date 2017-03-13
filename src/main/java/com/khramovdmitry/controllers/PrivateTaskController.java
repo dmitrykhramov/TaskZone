@@ -25,41 +25,34 @@ import java.util.List;
 @RequestMapping("/rest/tasks/private")
 public class PrivateTaskController {
 
-    @Autowired
     private PrivateTaskService privateTaskService;
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    public void setPrivateTaskService(PrivateTaskService privateTaskService) {
+        this.privateTaskService = privateTaskService;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping("/all")
     public List<PrivateTask> listPrivateTasks(Principal principal) {
         User user = userService.findByUsername(principal.getName());
-        List<PrivateTask> privateTasks = new ArrayList<>();
-        for (PrivateTask task : user.getPrivateTasks()) {
-            if (!task.isDone()) {
-                privateTasks.add(task);
-            }
-        }
-        return privateTasks;
+        return privateTaskService.listAllUnfinished(user);
     }
 
     @RequestMapping("/finished")
     public List<PrivateTask> listFinishedTasks(Principal principal) {
-
         User user = userService.findByUsername(principal.getName());
-        List<PrivateTask> privateTasks = new ArrayList<>();
-        for (PrivateTask task : user.getPrivateTasks()) {
-            if (task.isDone()) {
-                privateTasks.add(task);
-            }
-        }
-        return privateTasks;
+        return privateTaskService.listAllFinished(user);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<?> addTask(@RequestBody PrivateTask task, Principal principal) {
         User user = userService.findByUsername(principal.getName());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         task.setUser(user);
         task.setDone(false);
         Date date = new Date();

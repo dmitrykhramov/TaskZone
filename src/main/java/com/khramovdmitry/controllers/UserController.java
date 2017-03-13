@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Dmitry on 04.03.2017.
@@ -30,51 +31,50 @@ public class UserController {
         return userService.listAll();
     }
 
-    @RequestMapping(value = "/checkuser", method = RequestMethod.GET)
-    public boolean isManager(Principal principal) {
-        User user = userService.findByUsername(principal.getName());
-        return user.isManager();
+    @RequestMapping(value = "/principal", method = RequestMethod.GET)
+    public User currentUser(Principal principal) {
+        return userService.findByUsername(principal.getName());
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addEmployee(@RequestBody User user) {
-        userService.createUser(user);
-        return "created";
-    }
-
-    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
-    public String updateEmployee(@RequestBody User user) {
+    public ResponseEntity<?> addEmployee(@RequestBody User user, Principal principal) {
+        if (!userService.findByUsername(principal.getName()).isManager()) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         userService.saveOrUpdate(user);
-        return "updated";
-    }
-
-    @RequestMapping(value = "/remove/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> updateEmployee(@PathVariable("id") int id) {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateEmployee(@RequestBody User user, Principal principal) {
+        User oldUser = userService.findByUsername(principal.getName());
+        oldUser.setUsername(user.getUsername());
+        oldUser.setFirstName(user.getFirstName());
+        oldUser.setLastName(user.getLastName());
+        oldUser.setEmail(user.getEmail());
 
-    @RequestMapping(value = "/populate", method = RequestMethod.GET)
-    public String populateUsers() {
-        User user = new User();
-        user.setEmail("antti.piironen@metropolia.fi");
-        user.setFirstName("Antti");
-        user.setLastName("Piironen");
-        user.setPassword("admin");
-        user.setUsername("admin");
-        user.setManager(true);
-        userService.createUser(user);
-
-        User user1 = new User();
-        user1.setEmail("dmitry.khramov@metropolia.fi");
-        user1.setFirstName("Dmitry");
-        user1.setLastName("Khramov");
-        user1.setPassword("user");
-        user1.setUsername("user");
-        user1.setManager(false);
-        userService.createUser(user1);
-        return "user populated";
+        return new ResponseEntity<>(userService.saveOrUpdate(oldUser), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/changePass", method = RequestMethod.PUT)
+    public ResponseEntity<?> changePassword(@RequestBody Map<String, String> map, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        if (userService.changePassword(user, map.get("oldPass"), map.get("newPass"))) {
+            return new ResponseEntity<>("Changed", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+    }
+
+    @RequestMapping(value = "/remove/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteEmployee(@PathVariable("id") int id, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        if (!user.isManager() || user.getUserId() == id) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        userService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

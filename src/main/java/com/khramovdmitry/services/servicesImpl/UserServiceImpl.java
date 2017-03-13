@@ -54,12 +54,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User user) {
-
-        User localUser;
-
-        localUser = userRepository.save(user);
-
-        return localUser;
+    public boolean changePassword(User user, String oldPass, String newPass) {
+        String currentPass = user.getPassword();
+        if (currentPass.equals(oldPass)) {
+            user.setPassword(newPass);
+            saveOrUpdate(user);
+            return true;
+        }
+        return false;
     }
 }

@@ -12,6 +12,61 @@ body {
 }
 
 
+/* Modal Styles */
+
+.modal {
+  color: #ed2553;
+  font-weight: 400;
+  font-family: 'Josefin Sans', sans-serif;
+  letter-spacing: 1px;
+}
+
+.modal-body {
+  color: black;
+}
+
+.modal-header {
+  background-color: #ed2553;
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.form-control {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+.card-block.label {
+  text-transform: uppercase;
+}
+
+.form-group.btn {
+  text-align: center;
+}
+
+.glyphicon-yellow {
+  color: yellow;
+}
+
+.glyphicon-red {
+  color: darkred;
+}
+
+
+/* HR Style */
+
+hr {
+  background-color: #eee;
+  border: 0 none;
+  color: gainsboro;
+  height: 2px;
+}
+
+
 /* Toggle Styles */
 
 a {
@@ -23,20 +78,15 @@ a {
   transform: translateY(50%);
 }
 
-.nav {
+.nav > li >a {
   background-color: transparent !important;
-}
-
-.nav>li>a {
-  background-color: transparent !important;
+  border: 2px solid white;
+  margin-left: 2em;
 }
 
 .navbar-nav > li > a:hover {
-  color: color: #5cb85c;
-}
-
-.navbar-nav>.active> a {
-  background-color: transparent !important;
+  color: #5bc0de;
+  border-color: #5bc0de;
 }
 
 ul.nav-tabs {
@@ -48,8 +98,70 @@ ul.nav-tabs li {
   display: inline-block;
 }
 
-.modal {
-  color: black;
+ul.nav-tabs > li > a {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  border-bottom-style: none;
+  outline: 0;
+}
+
+.modal-content {
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  border-radius: 0px !important;
+}
+
+
+/* Transparent nav-tabs */
+
+.tabs-advanced > li > a {
+  color: white;
+  outline: 0;
+}
+
+.tabs-advanced > li > a:hover,
+.tabs-advanced > li > a:focus {
+  background-color: transparent;
+  border-color: #fff #fff transparent;
+  color: white;
+}
+
+.tabs-advanced > .active > a,
+.tabs-advanced > .active > a:hover,
+.tabs-advanced > .active > a:focus {
+  background-color: transparent;
+  border-color: #fff #fff transparent;
+  color: white;
+}
+
+.tabs-advanced {
+  display: table;
+  border: none;
+}
+
+.tabs-advanced > li {
+  display: table-cell;
+  float: none;
+}
+
+.tabs-advanced > li > a {
+  margin-right: 0;
+  border-bottom-style: none;
+}
+
+.tabs-advanced > li:not(.active):not(:hover) {
+  border-bottom: 1px solid #ddd;
+}
+
+.tabs-advanced > li.filler {
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabs-advanced > li.in-between-filler {
+  min-width: 2px;
+  border-bottom: 1px solid #ddd;
 }
 
 
@@ -74,6 +186,10 @@ ul.nav-tabs li {
   box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
 
+.card-title {
+  text-transform: uppercase;
+}
+
 #wrapper {
   padding-left: 0;
   -webkit-transition: all 0.5s ease;
@@ -90,6 +206,7 @@ ul.nav-tabs li {
 /* Transparent rectangular buttons */
 
 .btn-transparent {
+  margin-right: 2em;
   width: 150px;
   height: auto;
   font-size: 12px;
@@ -100,11 +217,93 @@ ul.nav-tabs li {
   color: white;
 }
 
+.btn-outline {
+  background-color: transparent;
+  color: inherit;
+  transition: all .5s;
+}
 
-/* rectangular button */
+.btn-form {
+  color: #ed2553;
+  border: 2px solid #ed2553;
+  background-color: transparent;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Josefin Sans', sans-serif;
+  letter-spacing: 1px;
+}
+
+
+/* Rectangular button */
 
 .sharp {
   border-radius: 0;
+  text-transform: uppercase;
+}
+
+.sub-button {
+  text-align: center;
+}
+
+dd,
+dt {
+  padding: 0.75em;
+}
+
+.info-header {
+  background-color: white;
+  color: #ed2553;
+  font-weight: bold;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-family: 'Josefin Sans', sans-serif;
+  letter-spacing: 1px;
+  padding: 1em;
+  margin: 0;
+}
+
+.card-profile {
+  margin: auto;
+  max-width: 90%;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.no-marging {
+  margin: 0 !important;
+}
+
+.padding {
+  padding: 1.5 em !important;
+}
+
+.padded-left {
+  padding-left: 2em !important;
+}
+
+.dd {
+  color: black;
+}
+
+figcaption {
+  font-weight: 400;
+  font-size: 1.25em;
+}
+
+
+/* Pink button */
+
+.btn-pink {
+  background-color: #ed2553;
+  color: white;
+  width: 10em;
+  height: auto;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Josefin Sans', sans-serif;
+  letter-spacing: 1px;
 }
 
 
